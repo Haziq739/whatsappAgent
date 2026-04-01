@@ -1,0 +1,13 @@
+flask
+pyngrok
+requests
+gtts
+deep-translator
+transformers
+sentence-transformers
+chromadb
+langdetect
+torch
+accelerate
+bitsandbytes
+firebase-admin

@@ -1,0 +1,42 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# ML Models (large files)
+models/
+
+# ChromaDB vector store
+chroma_db/
+
+# FFmpeg binaries (large ~670MB)
+ffmpeg.exe
+ffplay.exe
+ffprobe.exe
+
+# Audio files (generated at runtime)
+*.mp3
+*.ogg
+*.wav
+
+# Database
+*.db
+
+# Firebase service account key (SECRET - never push!)
+serviceAccountKey.json
+
+# Environment variables
+.env
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+Thumbs.db
+.DS_Store
