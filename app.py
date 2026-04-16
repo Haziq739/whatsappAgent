@@ -115,11 +115,22 @@ def webhook():
                     # Step 4 & 5: Generate AI Response (Language detection now handled inside brain.py)
                     ai_response, tts_lang = generate_rag_response(text_input, sender=sender)
                     
+                    # ✅ SPECIAL CASE: If we are at the order confirmation step, send TEXT instead of audio
+                    from utils.brain import USER_STATES
+                    is_confirmation_step = sender in USER_STATES and USER_STATES[sender].get("step") == "awaiting_confirmation"
+
                     # Check if order was confirmed
                     from utils.brain import CONFIRMED_ORDERS_QUEUE
                     if sender in CONFIRMED_ORDERS_QUEUE:
                         order_info = CONFIRMED_ORDERS_QUEUE.pop(sender)
                         create_order(sender, order_info["details"], order_info["product"])
+
+                    if is_confirmation_step:
+                        print(f"[SENT] From: {agent_number} → To: {sender} (Text Confirmation)")
+                        print(f"Message (Text): {ai_response}\n")
+                        send_whatsapp_text(sender, ai_response)
+                        store_message(sender, agent_number, ai_response, "agent")
+                        return jsonify({"status": "ok"}), 200
 
                     print(f"[SENT] From: {agent_number} → To: {sender}")
                     print(f"Message (Audio): {ai_response}\n")

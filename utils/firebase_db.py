@@ -2,6 +2,8 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 import datetime
 import os
+import re
+from deep_translator import GoogleTranslator
 
 # Initialize Firebase
 db = None
@@ -92,23 +94,38 @@ def create_order(customer_number, raw_details, product_name):
         # Basic extraction from raw_details (typically comma-separated: Name, Number, Location)
         parts = [p.strip() for p in raw_details.split(',')]
         customer_name = parts[0] if len(parts) > 0 else raw_details
-        
-        # REMOVE NUMBERS and special symbols from Name
-        import re
-        customer_name = re.sub(r'[^a-zA-Z\s]', '', customer_name).strip()
-        # Ensure it's not empty after cleaning
-        if not customer_name:
-            customer_name = parts[0]
-            
         location = parts[-1] if len(parts) > 1 else "Unknown (Check Details)"
+
+        # Helper to translate anything non-English to English
+        def to_english(text):
+            try:
+                # If it has Urdu/Arabic characters or Hindi (Devanagari) characters, translate it
+                if re.search(r'[\u0600-\u06FF\u0900-\u097F]', text):
+                    return GoogleTranslator(source='auto', target='en').translate(text)
+                return text
+            except:
+                return text
+
+        # Translate all fields to English for consistent storage
+        print(f"🔄 Translating order details to English...")
+        customer_name_en = to_english(customer_name)
+        product_name_en = to_english(product_name)
+        location_en = to_english(location)
+
+        # CLEAN Name from extra symbols/digits
+        customer_name_en = re.sub(r'[^a-zA-Z\s]', '', customer_name_en).strip().title()
         
+        # Fallback if empty after translation/cleaning
+        if not customer_name_en:
+            customer_name_en = "Customer"
+
         orders_ref = db.collection('orders_chatbot')
         order_data = {
             'conversationId': conversation_id,
-            'customerName': customer_name,
+            'customerName': customer_name_en,
             'customerNumber': customer_number,
-            'productName': product_name,
-            'location': location,
+            'productName': product_name_en.title(),
+            'location': location_en.title(),
             'status': 'confirmed',
             'timestamp': firestore.SERVER_TIMESTAMP
         }

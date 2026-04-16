@@ -2,7 +2,7 @@ import chromadb
 from sentence_transformers import SentenceTransformer
 
 # 1. Initialize the embedding model (Same one used in brain.py)
-print("✨ Initializing embedding engine...")
+print("Initializing embedding engine...")
 embedder = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
 
 # 2. Connect to the database folder
@@ -15,8 +15,8 @@ documents = [
     # --- English User Queries (High Priority) ---
     {"id": "en_q_price_1", "text": "What is the price of this phone?"},
     {"id": "en_q_price_2", "text": "Price please"},
-    {"id": "en_q_price_3", "text": "How much is S25 Ultra?"},
-    {"id": "en_q_price_4", "text": "Latest price of Redmi 14C?"},
+    {"id": "en_q_price_3", "text": "How much is Samsung Galaxy S25 Ultra?"},
+    {"id": "en_q_price_4", "text": "Latest price of Redmi 14C Phone?"},
 
     {"id": "en_q_delivery_1", "text": "How long does delivery take?"},
     {"id": "en_q_delivery_2", "text": "Can I get it tomorrow?"},
@@ -70,12 +70,13 @@ documents = [
     {"id": "en_3", "text": "Cash on Delivery is available across the UAE."},
     {"id": "en_4", "text": "Our phones come with a 7-day replacement warranty."},
     {"id": "en_5", "text": "For more information, contact us on WhatsApp or call 0563235075."},
-    {"id": "en_redmi14c_price", "text": "Redmi 14c price is 210 AED."},
-    {"id": "en_price_s25_ultra", "text": "S25 ULTRA is priced at 210 AED as part of a 24-hour flash offer."},
+    {"id": "en_redmi14c_price", "text": "Redmi 14c price is 159 AED."},
+    {"id": "en_price_s25_ultra", "text": "Samsung Galaxy S25 Ultra is priced at 210 AED as part of a 24-hour flash offer."},
     {"id": "en_price_redmi_14c_5g", "text": "Redmi 14c 5G price is 159 AED or 210 AED depending on the specific promotion variant."},
-    {"id": "en_price_s24_ultra_copy", "text": "Samsung S24 Ultra (High Quality Copy) is available for 375 AED."},
-    {"id": "en_price_s23_ultra", "text": "S23 Ultra is available for 210 AED."},
-    {"id": "en_price_generic_ultra", "text": "Ultra series models are generally priced around 210 AED during promotional periods."},
+    {"id": "en_price_s24_ultra_copy", "text": "Samsung Galaxy S24 Ultra (High Quality Copy) is available for 375 AED."},
+    {"id": "en_price_s23_ultra", "text": "Samsung Galaxy S23 Ultra is available for 180 AED."},
+    {"id": "en_price_generic_ultra", "text": "Ultra series models are generally priced between 150 AED to 400 AED."},
+    {"id": "en_catalog_list", "text": "The products currently available at AGS Gadgets UAE are: Samsung Galaxy S25 Ultra, S24 Ultra (Quality Copy), S23 Ultra, and Redmi 14c."},
     {"id": "en_spec_fingerprint", "text": "The phones feature a fingerprint sensor located inside/on the screen."},
     {"id": "en_spec_condition", "text": "All phones are brand new, seal-packed, and come in the original box pack."},
     {"id": "en_spec_originality", "text": "The gadgets are described as original quality products."},
@@ -103,6 +104,95 @@ documents = [
     {"id": "en_order_timing", "text": "Orders confirmed before 4 PM are processed for next-day delivery dispatch."},
     {"id": "en_order_confirmation", "text": "Our team will call you to verify the order before the rider departs."},
 
+    # --- NEW PRODUCTS: Samsung A-Series ---
+    {"id": "en_price_a15", "text": "Samsung Galaxy A15 price is 125 AED."},
+    {"id": "en_price_a25", "text": "Samsung Galaxy A25 price is 165 AED."},
+    {"id": "en_price_a35", "text": "Samsung Galaxy A35 price is 220 AED."},
+    {"id": "en_price_a55", "text": "Samsung Galaxy A55 price is 285 AED."},
+    {"id": "en_price_a05s", "text": "Samsung Galaxy A05s price is 99 AED."},
+    {"id": "en_price_a06", "text": "Samsung Galaxy A06 price is 110 AED."},
+
+    # --- NEW PRODUCTS: Samsung Z-Series ---
+    {"id": "en_price_z_fold6", "text": "Samsung Galaxy Z Fold 6 price is 1450 AED."},
+    {"id": "en_price_z_flip6", "text": "Samsung Galaxy Z Flip 6 price is 950 AED."},
+    {"id": "en_price_z_fold5", "text": "Samsung Galaxy Z Fold 5 price is 1150 AED."},
+
+    # --- NEW PRODUCTS: Samsung S-Series (Older) ---
+    {"id": "en_price_s24_fe", "text": "Samsung Galaxy S24 FE price is 350 AED."},
+    {"id": "en_price_s24_plus", "text": "Samsung Galaxy S24 Plus price is 420 AED."},
+    {"id": "en_price_s24_standard", "text": "Samsung Galaxy S24 (Standard) price is 310 AED."},
+
+    # --- NEW PRODUCTS: iPhone ---
+    {"id": "en_price_iphone16_pro_max", "text": "iPhone 16 Pro Max price is 1650 AED."},
+    {"id": "en_price_iphone16_pro", "text": "iPhone 16 Pro price is 1450 AED."},
+    {"id": "en_price_iphone16", "text": "iPhone 16 price is 1150 AED."},
+    {"id": "en_price_iphone15_pro_max", "text": "iPhone 15 Pro Max price is 1350 AED."},
+    {"id": "en_price_iphone15_pro", "text": "iPhone 15 Pro price is 1200 AED."},
+    {"id": "en_price_iphone15", "text": "iPhone 15 price is 950 AED."},
+    {"id": "en_price_iphone14_pro_max", "text": "iPhone 14 Pro Max price is 1100 AED."},
+    {"id": "en_price_iphone14_pro", "text": "iPhone 14 Pro price is 980 AED."},
+    {"id": "en_price_iphone14", "text": "iPhone 14 price is 750 AED."},
+    {"id": "en_price_iphone13", "text": "iPhone 13 price is 620 AED."},
+    {"id": "en_price_iphone12", "text": "iPhone 12 price is 480 AED."},
+    {"id": "en_price_iphone11", "text": "iPhone 11 price is 350 AED."},
+    {"id": "en_price_iphonese", "text": "iPhone SE (2022) price is 420 AED."},
+
+    # --- NEW PRODUCTS: Google Pixel ---
+    {"id": "en_price_pixel8_pro", "text": "Google Pixel 8 Pro price is 850 AED."},
+    {"id": "en_price_pixel8", "text": "Google Pixel 8 price is 650 AED."},
+    {"id": "en_price_pixel8a", "text": "Google Pixel 8a price is 520 AED."},
+    {"id": "en_price_pixel7a", "text": "Google Pixel 7a price is 420 AED."},
+    {"id": "en_price_pixel7", "text": "Google Pixel 7 price is 380 AED."},
+    {"id": "en_price_pixel6", "text": "Google Pixel 6 price is 290 AED."},
+
+    # --- NEW PRODUCTS: Xiaomi / Redmi / POCO ---
+    {"id": "en_price_redmi_note13", "text": "Redmi Note 13 price is 195 AED."},
+    {"id": "en_price_redmi_note13_pro", "text": "Redmi Note 13 Pro price is 265 AED."},
+    {"id": "en_price_redmi_note12", "text": "Redmi Note 12 price is 175 AED."},
+    {"id": "en_price_poco_x6", "text": "POCO X6 Pro price is 310 AED."},
+    {"id": "en_price_poco_m6", "text": "POCO M6 Pro price is 220 AED."},
+    {"id": "en_price_poco_f6", "text": "POCO F6 price is 380 AED."},
+    {"id": "en_price_xiaomi14", "text": "Xiaomi 14 price is 550 AED."},
+    {"id": "en_price_xiaomi14_ultra", "text": "Xiaomi 14 Ultra price is 750 AED."},
+
+    # --- NEW PRODUCTS: Laptops - MacBook ---
+    {"id": "en_price_macbook_air_m1", "text": "MacBook Air M1 (2020) price is 1200 AED."},
+    {"id": "en_price_macbook_air_m2", "text": "MacBook Air M2 price is 1550 AED."},
+    {"id": "en_price_macbook_air_m3", "text": "MacBook Air M3 price is 1850 AED."},
+    {"id": "en_price_macbook_pro_m2", "text": "MacBook Pro M2 14-inch price is 2200 AED."},
+    {"id": "en_price_macbook_pro_m3", "text": "MacBook Pro M3 14-inch price is 2650 AED."},
+    {"id": "en_price_macbook_pro_m3_pro", "text": "MacBook Pro M3 Pro 16-inch price is 3200 AED."},
+
+    # --- NEW PRODUCTS: Laptops - HP ---
+    {"id": "en_price_hp_elitebook_840", "text": "HP EliteBook 840 G9 price is 1450 AED."},
+    {"id": "en_price_hp_pavilion_15", "text": "HP Pavilion 15 price is 850 AED."},
+    {"id": "en_price_hp_omen_16", "text": "HP OMEN 16 Gaming Laptop price is 1950 AED."},
+    {"id": "en_price_hp_14s", "text": "HP 14s Laptop price is 650 AED."},
+    {"id": "en_price_hp_victus_15", "text": "HP Victus 15 Gaming Laptop price is 1350 AED."},
+
+    # --- NEW PRODUCTS: Laptops - Dell ---
+    {"id": "en_price_dell_latitude_7490", "text": "Dell Latitude 7490 price is 1100 AED."},
+    {"id": "en_price_dell_inspiron_15", "text": "Dell Inspiron 15 price is 780 AED."},
+    {"id": "en_price_dell_xps_13", "text": "Dell XPS 13 price is 1650 AED."},
+    {"id": "en_price_dell_xps_15", "text": "Dell XPS 15 price is 2100 AED."},
+    {"id": "en_price_dell_g15_gaming", "text": "Dell G15 Gaming Laptop price is 1500 AED."},
+
+    # --- NEW PRODUCTS: Laptops - Lenovo ---
+    {"id": "en_price_lenovo_thinkpad_x1", "text": "Lenovo ThinkPad X1 Carbon price is 1750 AED."},
+    {"id": "en_price_lenovo_ideapad_3", "text": "Lenovo IdeaPad 3 price is 620 AED."},
+    {"id": "en_price_lenovo_legion_5", "text": "Lenovo Legion 5 Gaming Laptop price is 1680 AED."},
+    {"id": "en_price_lenovo_yoga_7", "text": "Lenovo Yoga 7 2-in-1 price is 1200 AED."},
+
+    # --- NEW PRODUCTS: Laptops - ASUS ---
+    {"id": "en_price_asus_rog_strix_g16", "text": "ASUS ROG Strix G16 Gaming Laptop price is 2100 AED."},
+    {"id": "en_price_asus_tuf_f15", "text": "ASUS TUF Gaming F15 Laptop price is 1400 AED."},
+    {"id": "en_price_asus_vivobook_15", "text": "ASUS VivoBook 15 price is 680 AED."},
+    {"id": "en_price_asus_zenbook_14", "text": "ASUS ZenBook 14 OLED price is 1350 AED."},
+
+    # --- Updated Catalog Lists ---
+    {"id": "en_catalog_phones_full", "text": "Phones available at AGS Gadgets: Samsung S25 Ultra, S24 Ultra (Copy), S23 Ultra, S24, S24 Plus, S24 FE, A55, A35, A25, A15, A06, A05s, Z Fold 6, Z Flip 6, iPhone 16 Pro Max, iPhone 15, iPhone 14, iPhone 13, iPhone 12, iPhone 11, Google Pixel 8 Pro, Pixel 8, Pixel 7a, Redmi 14C, Redmi Note 13 Pro, POCO X6 Pro, Xiaomi 14."},
+    {"id": "en_catalog_laptops_full", "text": "Laptops available at AGS Gadgets: MacBook Air M1, M2, M3, MacBook Pro M2, M3, M3 Pro, HP EliteBook 840, HP Pavilion 15, HP OMEN 16, HP Victus 15, Dell Latitude 7490, Dell Inspiron 15, Dell XPS 13, Dell XPS 15, Dell G15, Lenovo ThinkPad X1, Lenovo IdeaPad 3, Lenovo Legion 5, Lenovo Yoga 7, ASUS ROG Strix G16, ASUS TUF F15, ASUS VivoBook 15, ASUS ZenBook 14."},
+
     # --- Urdu ---
     {"id": "ur_order_process_1", "text": "آرڈر پلیس کرنے کا طریقہ یہ ہے کہ آپ اپنا پورا نام، موبائل نمبر اور لوکیشن سینڈ کریں۔"},
     {"id": "ur_delivery_time_1", "text": "متحدہ عرب امارات میں آرڈر 2 سے 3 دن کے اندر ڈیلیور ہوتا ہے۔ کل آپ کو مل جائے گا۔"},
@@ -111,7 +201,8 @@ documents = [
     {"id": "ur_contact_1", "text": "مزید معلومات کے لیے ہم سے رابطہ کریں یا 0563235075 پر کال کریں۔"},
     {"id": "ur_price_s25_ultra_1", "text": "ایس 25 الٹرا کی قیمت 24 گھنٹے کے آفر میں صرف 210 درہم ہے۔"},
     {"id": "ur_price_s24_ultra_1", "text": "سیمسنگ ایس 24 الٹرا (ہائی کوالٹی کاپی) 375 درہم میں دستیاب ہے۔"},
-    {"id": "ur_price_redmi_1", "text": "ریڈمی 14C کی قیمت 210 درہم ہے۔"},
+    {"id": "ur_price_redmi_1", "text": "ریڈمی 14C کی قیمت 159 درہم ہے۔"},
+    {"id": "ur_catalog_list", "text": "ہمارے پاس دستیاب موبائلز یہ ہیں: سیمسنگ ایس 25 الٹرا، ایس 24 الٹرا (ہائی کوالٹی کاپی)، ایس 23 الٹرا، اور ریڈمی 14C۔"},
     {"id": "ur_spec_condition_1", "text": "تمام فون نئے، سیل پیک اور اصل باکس کے ساتھ آتے ہیں۔"},
     {"id": "ur_spec_contents_1", "text": "باکس میں چارجر اور دیگر ضروری لوازمات شامل ہوتے ہیں۔"},
     {"id": "ur_delivery_area_1", "text": "ہم دبئی، عجمان اور دیگر تمام علاقوں میں ہوم ڈیلیوری فراہم کرتے ہیں۔"},
@@ -141,8 +232,9 @@ documents = [
     {"id": "ru_contact_1", "text": "Zyada information ke liye humein WhatsApp karein ya 0563235075 par call karein."},
     {"id": "ru_price_s25_ultra_1", "text": "S25 Ultra ki price 24 hours offer mein sirf 210 AED hai."},
     {"id": "ru_price_s24_ultra_1", "text": "Samsung S24 Ultra (High Quality Copy) 375 AED mein available hai."},
-    {"id": "ru_price_redmi_1", "text": "Redmi 14C ki price 210 AED hai."},
-    {"id": "ru_price_s23_ultra_1", "text": "S23 Ultra ki price 210 AED hai."},
+    {"id": "ru_price_redmi_1", "text": "Redmi 14C ki price 159 AED hai."},
+    {"id": "ru_price_s23_ultra_1", "text": "S23 Ultra ki price 180 AED hai."},
+    {"id": "ru_catalog_list", "text": "Humare pas available products ye hain: Samsung S25 Ultra, S24 Ultra (Copy), S23 Ultra, aur Redmi 14C."},
     {"id": "ru_order_tracking_1", "text": "aap apna order phone number ya order id se track kar sakte hain."},
     {"id": "ru_spec_fingerprint_1", "text": "phones mein fingerprint sensor screen ke andar ya side par hota hai."},
     {"id": "ru_spec_condition_1", "text": "tamam phones bilkul naye hain, seal pack aur original box ke sath aate hain."},
@@ -212,7 +304,7 @@ documents = [
 ]
 
 # 4. Uploading to Database
-print(f"📥 Adding {len(documents)} documents to the knowledge base...")
+print(f"Adding {len(documents)} documents to the knowledge base...")
 
 for doc in documents:
     embedding = embedder.encode(doc["text"]).tolist()
@@ -222,4 +314,4 @@ for doc in documents:
         documents=[doc["text"]]
     )
 
-print("✅ Knowledge Base Updated Successfully!")
+print("Knowledge Base Updated Successfully!")
