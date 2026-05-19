@@ -1,0 +1,24 @@
+[2026-04-17 11:15:31] User: hi
+[2026-04-17 11:15:36] Assistant: Hello! Welcome to AGS Gadgets UAE. How can I help you today?
+[2026-04-17 11:16:24] User: I want to know which products are available
+[2026-04-17 11:16:45] Assistant: کیا کیش آن ڈیلیوری دستیاب ہے؟
+[2026-04-17 11:17:10] User: Which products are available
+[2026-04-17 11:17:35] Assistant: AGS GADGETS
+[2026-04-17 11:20:05] User: How long does delivery take?
+[2026-04-17 11:20:34] Assistant: Standard delivery takes
+[2026-04-17 11:23:10] User: Do you deliver in Dubai?
+[2026-04-17 11:23:31] Assistant: Do you deliver to Dubai?
+[2026-04-17 11:31:36] User: I want to know which products are available
+[2026-04-17 11:32:00] Assistant: Sorry, I don't have any information about that.
+[2026-04-17 11:43:13] User: hi
+[2026-04-17 11:43:18] Assistant: Hello! Welcome to AGS Gadgets UAE. How can I help you today?
+[2026-04-17 11:45:12] User: Which products are available
+[2026-04-17 11:45:34] Assistant: Sorry, I don't have any information about that.
+[2026-04-17 11:51:04] User: is there nokia product or mobile phone available
+[2026-04-17 11:51:09] Assistant: The iPhone 16 is available for 1150 AED.
+[2026-04-17 11:51:48] User: is there any nokia mobile available
+[2026-04-17 11:51:53] Assistant: Sorry, this product is not available in our catalog.
+[2026-04-17 11:52:15] User: I want to buy Lenovo Laptop
+[2026-04-17 11:52:21] Assistant: The Lenovo Legion 5 Gaming Laptop is available for 1680 AED.
+
+To place an order for this, please share your Full Name, Mobile Number, and Google Maps Location.

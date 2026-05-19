@@ -7,7 +7,8 @@ from utils.brain import generate_rag_response
 from utils.whatsapp_api import send_whatsapp_text, send_whatsapp_audio
 # ✅ IMPORTED the TTS engine you just made
 from utils.tts_engine import generate_audio_sync 
-from utils.firebase_db import store_message, create_order
+from utils.firebase_db import store_message
+from tools.order_tool import order_creation_tool
 import config
 
 app = Flask(__name__)
@@ -72,7 +73,7 @@ def webhook():
                 from utils.brain import CONFIRMED_ORDERS_QUEUE
                 if sender in CONFIRMED_ORDERS_QUEUE:
                     order_info = CONFIRMED_ORDERS_QUEUE.pop(sender)
-                    create_order(sender, order_info["details"], order_info["product"])
+                    order_creation_tool(sender, order_info)
                 
                 print(f"[SENT] From: {agent_number} → To: {sender}")
                 print(f"Message: {response_text}\n")
@@ -84,7 +85,7 @@ def webhook():
 
             # --- HANDLE VOICE/AUDIO MESSAGES ---
             elif "audio" in message_obj:
-                print("🎧 Received voice message")
+                print("[AUDIO] Received voice message")
                 audio_id = message_obj["audio"]["id"]
 
                 # Step 1: Get media download URL from Meta
@@ -123,7 +124,7 @@ def webhook():
                     from utils.brain import CONFIRMED_ORDERS_QUEUE
                     if sender in CONFIRMED_ORDERS_QUEUE:
                         order_info = CONFIRMED_ORDERS_QUEUE.pop(sender)
-                        create_order(sender, order_info["details"], order_info["product"])
+                        order_creation_tool(sender, order_info)
 
                     if is_confirmation_step:
                         print(f"[SENT] From: {agent_number} → To: {sender} (Text Confirmation)")
@@ -140,7 +141,7 @@ def webhook():
 
                     # Step 6: Convert AI Response to Audio and Send
                     
-                    print(f"🎙️ Generating voice reply in {tts_lang}...")
+                    print(f"[TTS] Generating voice reply in {tts_lang}...")
                     
                     # ✅ ACTUALLY GENERATING THE VOICE NOW
                     audio_reply_path = generate_audio_sync(ai_response, lang=tts_lang)
@@ -148,16 +149,16 @@ def webhook():
                     # ✅ SENDING THE VOICE BACK TO WHATSAPP
                     send_whatsapp_audio(sender, audio_reply_path)
                     
-                    print(f"✅ Voice reply sent in {tts_lang}")
+                    print(f"[OK] Voice reply sent in {tts_lang}")
 
                 else:
-                    print("❌ Error: Could not get audio download URL")
+                    print("[ERROR] Could not get audio download URL")
 
             else:
-                print(f"⚠️ Unsupported message type: {message_obj.keys()}")
+                print(f"[WARN] Unsupported message type: {message_obj.keys()}")
 
         except Exception as e:
-            print("❌ Error processing message:", e)
+            print("[ERROR] Error processing message:", e)
 
         return jsonify({"status": "ok"}), 200
 
@@ -166,8 +167,8 @@ if __name__ == "__main__":
     ngrok.set_auth_token(config.NGROK_AUTH_TOKEN)
     public_url = ngrok.connect(5000)
     
-    print(f"🚀 Ags Gadgets Bot is LIVE!")
-    print(f"🌍 PUBLIC URL: {public_url}/webhook")
-    print("📋 Copy the URL above and paste it into Meta Developer Portal.")
+    print(f"[LIVE] Ags Gadgets Bot is LIVE!")
+    print(f"[URL] PUBLIC URL: {public_url}/webhook")
+    print("[INFO] Copy the URL above and paste it into Meta Developer Portal.")
     
     app.run(port=5000)
