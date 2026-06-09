@@ -5,7 +5,7 @@ from langdetect import detect
 from utils.transcription import transcribe_audio
 from utils.brain import generate_rag_response
 from utils.whatsapp_api import send_whatsapp_text, send_whatsapp_audio
-# ✅ IMPORTED the TTS engine you just made
+# IMPORTED the TTS engine you just made
 from utils.tts_engine import generate_audio_sync 
 from utils.firebase_db import store_message
 from tools.order_tool import order_creation_tool
